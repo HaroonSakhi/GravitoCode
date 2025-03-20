@@ -1,3 +1,9 @@
+# Author: Haroon Sakhi
+# Description: This code was developed by Haroon Sakhi as part
+# of the project GR Computations.
+# Any use or modification of this code should include proper
+# attribution to the original author.
+
 from sympy import *
 
 
