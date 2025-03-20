@@ -1,0 +1,304 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10200,        296]
+NotebookOptionsPosition[      9627,        279]
+NotebookOutlinePosition[     10056,        296]
+CellTagsIndexPosition[     10013,        293]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"G", "=", 
+   RowBox[{"6.6743", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"-", "11"}]}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"M", "=", 
+   RowBox[{"1.9891", "*", 
+    RowBox[{"10", "^", "30"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Au", "=", 
+   RowBox[{"1.496", "*", 
+    RowBox[{"10", "^", "11"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"dt", "=", "30"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"time", "=", "31536000"}], ";"}], "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"force", "[", 
+   RowBox[{"r_", ",", "mass_"}], "]"}], ":=", 
+  RowBox[{
+   RowBox[{"-", 
+    RowBox[{"(", 
+     RowBox[{"G", "*", "M", "*", "mass"}], ")"}]}], "/", 
+   RowBox[{"r", "^", "2"}]}]}], "\n", 
+ RowBox[{
+  RowBox[{"radius", "[", 
+   RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+  RowBox[{"Sqrt", "[", 
+   RowBox[{
+    RowBox[{"x", "^", "2"}], "+", 
+    RowBox[{"y", "^", "2"}]}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"area", "[", 
+   RowBox[{"r_", ",", "theta_"}], "]"}], ":=", 
+  RowBox[{"0.5", "*", 
+   RowBox[{"(", 
+    RowBox[{"r", "^", "2"}], ")"}], "*", "theta"}]}]}], "Input",
+ CellChangeTimes->{{3.9510458248371925`*^9, 3.951045824840607*^9}, 
+   3.951046017295086*^9, 3.9510462255058737`*^9, {3.9510462947417192`*^9, 
+   3.9510462984210253`*^9}, 3.95104906671603*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"51782de2-2a3f-4d2a-be05-9347807675ac"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Initialize", " ", "planets"}], "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"earth", "=", 
+     RowBox[{"<|", 
+      RowBox[{
+       RowBox[{"\"\<Mass\>\"", "->", 
+        RowBox[{"5.97219", "*", 
+         RowBox[{"10", "^", "24"}]}]}], ",", 
+       RowBox[{"\"\<Velocity\>\"", "->", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", 
+          RowBox[{"30", "*", 
+           RowBox[{"10", "^", "3"}]}]}], "}"}]}], ",", 
+       RowBox[{"\"\<Position\>\"", "->", 
+        RowBox[{"{", 
+         RowBox[{"Au", ",", "0"}], "}"}]}]}], "|>"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"mars", "=", 
+     RowBox[{"<|", 
+      RowBox[{
+       RowBox[{"\"\<Mass\>\"", "->", 
+        RowBox[{"6.39", "*", 
+         RowBox[{"10", "^", "23"}]}]}], ",", 
+       RowBox[{"\"\<Velocity\>\"", "->", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", 
+          RowBox[{"24", "*", 
+           RowBox[{"10", "^", "3"}]}]}], "}"}]}], ",", 
+       RowBox[{"\"\<Position\>\"", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"1.5", "*", "Au"}], ",", "0"}], "}"}]}]}], "|>"}]}], ";"}], 
+   "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"earthData", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"marsData", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{"Do", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"theta0", "=", 
+       RowBox[{"ArcTan", "@@", 
+        RowBox[{"earth", "[", "\"\<Position\>\"", "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"r", "=", 
+       RowBox[{"radius", "@@", 
+        RowBox[{"earth", "[", "\"\<Position\>\"", "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"rm", "=", 
+       RowBox[{"radius", "@@", 
+        RowBox[{"mars", "[", "\"\<Position\>\"", "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"a", "=", 
+       RowBox[{
+        RowBox[{"force", "[", 
+         RowBox[{"r", ",", 
+          RowBox[{"earth", "[", "\"\<Mass\>\"", "]"}]}], "]"}], "/", 
+        RowBox[{"earth", "[", "\"\<Mass\>\"", "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"am", "=", 
+       RowBox[{
+        RowBox[{"force", "[", 
+         RowBox[{"rm", ",", 
+          RowBox[{"mars", "[", "\"\<Mass\>\"", "]"}]}], "]"}], "/", 
+        RowBox[{"mars", "[", "\"\<Mass\>\"", "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ax", "=", 
+       RowBox[{"a", "*", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"earth", "[", "\"\<Position\>\"", "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "/", "r"}], ")"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ay", "=", 
+       RowBox[{"a", "*", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"earth", "[", "\"\<Position\>\"", "]"}], "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "/", "r"}], ")"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"axm", "=", 
+       RowBox[{"am", "*", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"mars", "[", "\"\<Position\>\"", "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "/", "rm"}], ")"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"aym", "=", 
+       RowBox[{"am", "*", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"mars", "[", "\"\<Position\>\"", "]"}], "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "/", "rm"}], ")"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"earth", "[", "\"\<Velocity\>\"", "]"}], "+=", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"ax", ",", "ay"}], "}"}], "*", "dt"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"mars", "[", "\"\<Velocity\>\"", "]"}], "+=", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"axm", ",", "aym"}], "}"}], "*", "dt"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"earth", "[", "\"\<Position\>\"", "]"}], "+=", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"earth", "[", "\"\<Velocity\>\"", "]"}], "*", "dt"}], ")"}],
+         "+", 
+        RowBox[{"0.5", "*", 
+         RowBox[{"{", 
+          RowBox[{"ax", ",", "ay"}], "}"}], "*", 
+         RowBox[{"dt", "^", "2"}]}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"mars", "[", "\"\<Position\>\"", "]"}], "+=", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"mars", "[", "\"\<Velocity\>\"", "]"}], "*", "dt"}], ")"}], 
+        "+", 
+        RowBox[{"0.5", "*", 
+         RowBox[{"{", 
+          RowBox[{"axm", ",", "aym"}], "}"}], "*", 
+         RowBox[{"dt", "^", "2"}]}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"theta", "=", 
+       RowBox[{
+        RowBox[{"ArcTan", "@@", 
+         RowBox[{"earth", "[", "\"\<Position\>\"", "]"}]}], "-", "theta0"}]}],
+       ";", "\[IndentingNewLine]", 
+      RowBox[{"areaValue", "=", 
+       RowBox[{"area", "[", 
+        RowBox[{"r", ",", "theta"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"AppendTo", "[", 
+       RowBox[{"earthData", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", 
+          RowBox[{
+           RowBox[{"earth", "[", "\"\<Position\>\"", "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", 
+          RowBox[{
+           RowBox[{"earth", "[", "\"\<Position\>\"", "]"}], "[", 
+           RowBox[{"[", "2", "]"}], "]"}], ",", "areaValue"}], "}"}]}], "]"}],
+       ";", "\[IndentingNewLine]", 
+      RowBox[{"AppendTo", "[", 
+       RowBox[{"marsData", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", 
+          RowBox[{
+           RowBox[{"mars", "[", "\"\<Position\>\"", "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", 
+          RowBox[{
+           RowBox[{"mars", "[", "\"\<Position\>\"", "]"}], "[", 
+           RowBox[{"[", "2", "]"}], "]"}], ",", "areaValue"}], "}"}]}], "]"}],
+       ";"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "time", ",", "dt"}], "}"}]}], "]"}], "\n", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{"\"\<earth.txt\>\"", ",", "earthData", ",", "\"\<Table\>\""}], 
+     "]"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{"\"\<mars.txt\>\"", ",", "marsData", ",", "\"\<Table\>\""}], 
+     "]"}], ";"}], "\n"}]}]], "Input",
+ CellChangeTimes->{{3.9510463041534395`*^9, 3.9510463053495264`*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"963821ff-8163-4c32-8e50-780fd7010330"],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"earthData", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "3"}], "}"}]}], "]"}], "]"}], ",", 
+     RowBox[{"marsData", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "3"}], "}"}]}], "]"}], "]"}]}], "}"}], ",", 
+   RowBox[{"Joined", "->", "True"}], ",", 
+   RowBox[{"PlotStyle", "->", 
+    RowBox[{"{", 
+     RowBox[{"Red", ",", "Green"}], "}"}]}], ",", 
+   RowBox[{"PlotLegends", "->", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Earth orbit\>\"", ",", "\"\<Mars orbit\>\""}], "}"}]}], ",", 
+   RowBox[{"AxesLabel", "->", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Position x (m)\>\"", ",", "\"\<Position y (m)\>\""}], 
+     "}"}]}], ",", 
+   RowBox[{"GridLines", "->", "Automatic"}], ",", 
+   RowBox[{"PlotLabel", "->", "\"\<Orbits of Earth and Mars\>\""}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.951046112650416*^9, 3.9510461345901036`*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"0ca47627-a1c1-4f3c-b366-b02b1b700e2e"]
+},
+WindowSize->{571, 403},
+WindowMargins->{{189, Automatic}, {17, Automatic}},
+Magnification:>0.9 Inherited,
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"4685b12a-0fb5-4db9-b8b3-d53f20b0333a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1388, 43, 163, "Input",ExpressionUUID->"51782de2-2a3f-4d2a-be05-9347807675ac"],
+Cell[1949, 65, 6548, 180, 574, "Input",ExpressionUUID->"963821ff-8163-4c32-8e50-780fd7010330"],
+Cell[8500, 247, 1123, 30, 94, "Input",ExpressionUUID->"0ca47627-a1c1-4f3c-b366-b02b1b700e2e"]
+}
+]
+*)
+
