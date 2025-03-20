@@ -63,7 +63,7 @@ You can also open an issue for discussions!
 ---
 
 ## License & Contact
-This project is **open-source**.
+This project is **open-source** and licensed under the **apache 2.0 License**.
 
 **Created by:** *Haroon Sakhi*  
 **GitHub:** [HaroonSakhi](https://github.com/HaroonSakhi)  
