@@ -1,3 +1,7 @@
+# Author: Haroon Sakhi
+# Any use or modification of this code should include proper
+# attribution to the original author.
+
 import numpy as np
 
 # Constants
