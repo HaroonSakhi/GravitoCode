@@ -1,3 +1,7 @@
+# Author: Haroon Sakhi
+# Any use or modification of this code should include proper
+# attribution to the original author.
+
 from vpython import *
 from math import sqrt, pi, cos, sin
 
